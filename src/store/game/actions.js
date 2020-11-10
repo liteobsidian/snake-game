@@ -9,5 +9,8 @@ export default {
 
   gameWon ({ commit }, won) {
     commit('gameWon', won)
+  },
+  setDarkTheme ({ commit }, theme) {
+    commit('setDarkTheme', theme)
   }
 }

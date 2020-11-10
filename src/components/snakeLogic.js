@@ -67,13 +67,13 @@ class RenderGrid {
 
         backCell.classList.add('back-cell')
         backCell.style.width = backCell.style.height = this.game.size + 'px'
-        backCell.style.left = x * this.game.size + 'px'
-        backCell.style.top = y * this.game.size + 'px'
+        backCell.style.left = `${x * this.game.size}px`
+        backCell.style.top = `${y * this.game.size}px`
 
         cell.classList.add('cell')
         cell.style.width = cell.style.height = this.game.size + 'px'
-        cell.style.left = x * this.game.size + 'px'
-        cell.style.top = y * this.game.size + 'px'
+        cell.style.left = `${x * this.game.size}px`
+        cell.style.top = `${y * this.game.size}px`
 
         this.game.stage.appendChild(backCell)
         this.game.stage.appendChild(cell)
@@ -131,7 +131,7 @@ class RenderGrid {
 }
 
 class Logic {
-  constructor (width, height, size, fps) {
+  constructor (width, height, size, fps, name) {
     this.width = width
     this.height = height
     this.size = size
@@ -140,6 +140,7 @@ class Logic {
     this.stage = document.getElementById('gameContainer')
     this.scoreValue = 0
     this.score = 0
+    this.name = name
 
     this.grid = new RenderGrid(this)
     this.food = new Food(this)
@@ -153,7 +154,6 @@ class Logic {
     setInterval(() => {
       this.update()
     }, 1000 / this.fps)
-    console.log(store)
     // -Property isPlaying = true
     return true
   }
@@ -278,11 +278,11 @@ class Snake {
   die () {
     stopSnake()
 
-    const date = new Date()
     const lastScore = this.game.score
+    const name = this.game.name
 
     finishGame({ finished: true, score: lastScore })
-    saveScore(lastScore, date)
+    saveScore(lastScore, name)
   }
 }
 
@@ -293,8 +293,8 @@ function stopSnake () {
   }
 }
 
-function saveScore (score, date) {
-  store.dispatch('gameStore/saveScore', { score, date })
+function saveScore (score, name) {
+  store.dispatch('gameStore/saveScore', { score, name })
 }
 
 function finishGame (lastGame) {

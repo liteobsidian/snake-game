@@ -1,15 +1,7 @@
 
 export default {
   saveScore (state, score) {
-    if (score.score > state.maxScore) {
-      state.maxScore = score.score
-    }
     state.scores.push(score)
-    console.log(score.score)
-  },
-
-  setMaxScore (state, score) {
-    state.maxScore = score
   },
 
   toggleGame (state, lastGame) {
@@ -19,5 +11,9 @@ export default {
 
   gameWon (state, won) {
     state.gameWon = won
+  },
+
+  setDarkTheme (state, theme) {
+    state.darkTheme = theme
   }
 }

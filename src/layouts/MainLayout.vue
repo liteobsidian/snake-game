@@ -6,17 +6,33 @@
           q-avatar.shadow-4(class="q-mx-md q-my-sm")
             img(src="https://image.flaticon.com/icons/png/128/3159/3159052.png")
           | Snake game
+        q-toggle(
+          :label="theme"
+          color="black"
+          false-value="Light Theme"
+          true-value="Dark Theme"
+          v-model="theme"
+          @input="changeTheme"
+          )
     q-page-container
       router-view
 </template>
 
 <script>
 
+import { mapActions } from 'vuex'
+
 export default {
   name: 'MainLayout',
   data () {
     return {
-      right: true
+      theme: 'Light Theme'
+    }
+  },
+  methods: {
+    ...mapActions({ setTheme: 'gameStore/setDarkTheme' }),
+    changeTheme () {
+      this.theme === 'Dark Theme' ? this.setTheme(true) : this.setTheme(false)
     }
   }
 }

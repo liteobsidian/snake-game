@@ -10,5 +10,7 @@ export default {
     }
   },
 
-  getGameWon: state => state.gameWon
+  getGameWon: state => state.gameWon,
+
+  isDarkTheme: state => state.darkTheme
 }
