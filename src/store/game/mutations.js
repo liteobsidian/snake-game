@@ -5,8 +5,7 @@ export default {
   },
 
   toggleGame (state, lastGame) {
-    state.lastGame.finished = lastGame.finished
-    state.lastGame.score = lastGame.score
+    state.lastGame = lastGame
   },
 
   gameWon (state, won) {

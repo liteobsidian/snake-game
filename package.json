@@ -10,7 +10,8 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "build:pwa": "quasar build -m pwa"
+    "build:pwa": "quasar build -m pwa",
+    "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=master"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -31,6 +32,7 @@
     "eslint-plugin-vue": "^6.1.2",
     "pug": "^3.0.0",
     "pug-plain-loader": "^1.0.0",
+    "push-dir": "^0.4.1",
     "vuex": "^3.5.1"
   },
   "browserslist": [

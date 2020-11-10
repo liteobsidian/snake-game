@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "https://liteobsidian.github.io/snake-game/",
     "paths": {
       "src/*": [
         "src/*"

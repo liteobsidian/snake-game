@@ -1,12 +1,18 @@
 <template lang="pug">
   div.wrapper
     q-card.full-height
-      q-tabs.text-grey(v-model='tab' dense='' active-color='primary' indicator-color='primary' align='justify' narrow-indicator='')
+      q-tabs.text-grey(
+        v-model='tab'
+        dense narrow-indicator
+        active-color='primary'
+        indicator-color='primary'
+        align='justify'
+      )
         q-tab(name='controls' label='Controls')
         q-tab(name='scores' label='Scores' v-if="allScores.length")
       q-separator
       q-tab-panels(v-model='tab' animated style="height: calc(100% - 37px);")
-        q-tab-panel(name='controls').controlsBar
+        q-tab-panel.controlsBar(name='controls')
           div
             .userName
               .text-h5.text-positive.margin(v-if="userName" ) {{userName}}
@@ -15,7 +21,7 @@
             h4 Score: {{score}}
             .q-pa-md.q-gutter-sm.q-mb-none
               q-btn.full-width(push color="deep-orange" label="start" @click="startGame" v-if="(!isPlaying || gameOver) && !gamePaused")
-              q-btn.full-width(push color="deep-orange" :label="pauseLabel" @click="toggleGame" v-if="(isPlaying && !gameOver) || gamePaused")
+              q-btn.full-width(push color="deep-orange" :label="pauseLabel" @click="toggleGame" v-else)
             h4 Settings
             .q-pa-md
               .text-subtitle1 Speed: {{currentSpeed}}
@@ -101,15 +107,18 @@ export default {
   align-items: center;
   margin: 10px;
 }
+
 .margin {
   margin-right: 10px;
 }
+
 .controlsBar {
   text-align: center;
   padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   & h4 {
     margin: 0;
     padding: 0;

@@ -1,9 +1,9 @@
 <template lang="pug">
   q-layout(view="hHh lpR lfr")
-    q-header(elevated class="bg-positive text-white")
+    q-header.bg-positive.text-white(elevated)
       q-toolbar
         q-toolbar-title
-          q-avatar.shadow-4(class="q-mx-md q-my-sm")
+          q-avatar.shadow-4.q-mx-md.q-my-sm
             img(src="https://image.flaticon.com/icons/png/128/3159/3159052.png")
           | Snake game
         q-toggle(

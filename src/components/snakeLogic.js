@@ -16,8 +16,6 @@ class Food {
   }
 
   placeFood () {
-    this.x = Math.floor(Math.random() * this.game.width)
-    this.y = Math.floor(Math.random() * this.game.height)
     // Not to place food under snake
     const futureFood = {
       x: Math.floor(Math.random() * this.game.width),
@@ -65,15 +63,15 @@ class RenderGrid {
         // BackCell is for preventing buggy background when animating
         const backCell = document.createElement('div')
 
-        backCell.classList.add('back-cell')
-        backCell.style.width = backCell.style.height = this.game.size + 'px'
-        backCell.style.left = `${x * this.game.size}px`
-        backCell.style.top = `${y * this.game.size}px`
+        const cellStyles = (cell, cellClass) => {
+          cell.classList.add(cellClass)
+          cell.style.width = cell.style.height = this.game.size + 'px'
+          cell.style.left = `${x * this.game.size}px`
+          cell.style.top = `${y * this.game.size}px`
+        }
 
-        cell.classList.add('cell')
-        cell.style.width = cell.style.height = this.game.size + 'px'
-        cell.style.left = `${x * this.game.size}px`
-        cell.style.top = `${y * this.game.size}px`
+        cellStyles(backCell, 'back-cell')
+        cellStyles(cell, 'cell')
 
         this.game.stage.appendChild(backCell)
         this.game.stage.appendChild(cell)
@@ -113,17 +111,9 @@ class RenderGrid {
           gridPiece.cell.classList.remove('filled')
         }
         // Is food or not
-        if (gridPiece.isFood) {
-          gridPiece.cell.classList.add('food')
-        } else {
-          gridPiece.cell.classList.remove('food')
-        }
+        gridPiece.isFood ? gridPiece.cell.classList.add('food') : gridPiece.cell.classList.remove('food')
         // Is head or not
-        if (gridPiece.isHead) {
-          gridPiece.cell.classList.add('head')
-        } else {
-          gridPiece.cell.classList.remove('head')
-        }
+        gridPiece.isHead ? gridPiece.cell.classList.add('head') : gridPiece.cell.classList.remove('head')
         gridPiece.value = false
       }
     }
@@ -144,7 +134,7 @@ class Logic {
 
     this.grid = new RenderGrid(this)
     this.food = new Food(this)
-    this.snake = new Snake(this, 3, 3, 2)
+    this.snake = new Snake(this, 3, 3, 1)
 
     this.finishLoop()
     this.startLoop()

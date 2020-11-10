@@ -13,8 +13,8 @@
             :rules="[val => !!val || 'Field is required']"
             )
         q-card-actions.text-primary(align='right')
-          q-btn(flat='' label='Cancel' v-close-popup='')
-          q-btn(flat='' label='Save name' @click="closeDialog" )
+          q-btn(flat label='Cancel' v-close-popup)
+          q-btn(flat label='Save name' @click="closeDialog")
     .col-8
       div.row.full-height.flex.flex-center.items-center.relative-position(ref="gameParent")
         div(id="gameContainer")
@@ -25,20 +25,20 @@
         q-card(
             class="absolute-center flex flex-center items-center q-animate--fade moduleScreen"
             v-if="gamePaused"
-            :style="'width:'+ (this.gameSize*12) + 'px; height:'+(this.gameSize*12)+'px;'"
+            :style="gameSize"
           )
           h2 PAUSE
         q-card.column(
           class="absolute-center flex flex-center items-center q-animate--fade moduleScreen"
           v-if="gameWonValue"
-          :style="'width:'+ (this.gameSize*12) + 'px; '+'height:'+(this.gameSize*12)+'px;'"
+          :style="gameSize"
         )
           h2 YOU WIN!!!
           h3 your score: {{score}}
         q-card(
           class="absolute-center flex column flex-center items-center q-animate--fade moduleScreen"
           v-if="lastGame.finished"
-          :style="'width:'+ (this.gameSize*12) + 'px; '+'height:'+(this.gameSize*12)+'px;'"
+          :style="gameSize"
         )
           h2 GAME OVER
           h3 your score: {{score}}
@@ -73,10 +73,6 @@ export default {
       isPlaying: false,
       gameStarted: false,
       gamePaused: false,
-      isLeftButtonPressed: false,
-      isUpButtonPressed: false,
-      isRightButtonPressed: false,
-      isDownButtonPressed: false,
       userName: null,
       prompt: false,
       isRename: false
@@ -100,10 +96,14 @@ export default {
     gameWonValue () {
       return this.getGameWon
     },
-    gameSize () {
+    gameCellSize () {
       const h = this.$refs.gameParent.clientHeight
       const w = this.$refs.gameParent.clientWidth
       return (h <= w ? h : w) / 12
+    },
+    gameSize () {
+      const size = this.gameCellSize * 12
+      return `width: ${size}px; height: ${size}px;`
     }
   },
   watch: {
@@ -132,7 +132,7 @@ export default {
     },
     startGame () {
       this.removeOldGame()
-      this.game = new Logic(12, 12, this.gameSize, this.$data.fps, this.$data.userName)
+      this.game = new Logic(12, 12, this.gameCellSize, this.$data.fps, this.$data.userName)
 
       this.gameStarted = true
       this.isPlaying = true
