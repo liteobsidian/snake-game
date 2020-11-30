@@ -134,7 +134,7 @@ class Logic {
 
     this.grid = new RenderGrid(this)
     this.food = new Food(this)
-    this.snake = new Snake(this, 3, 3, 1)
+    this.snake = new Snake(this, 3, 3, 2)
 
     this.finishLoop()
     this.startLoop()
